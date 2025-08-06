@@ -9,7 +9,8 @@ A Node.js library for downloading, installing, and launching Minecraft in offlin
 - **Custom Authentication**: Support for custom Yggdrasil authentication servers
 - **Mod Loader Support**: Built-in support for Fabric mod loader
 - **Cross-Platform**: Works on Windows, macOS, and Linux
-- **Progress Tracking**: Real-time download progress with speed indicators
+- **Progress Tracking**: Real-time download progress with speed indicators (event-based tracking supported)
+- **Live Game Log Tracking**: Listen for game log events in real time using Node.js EventEmitter
 - **File Integrity**: SHA1 hash verification for all downloaded files
 - **Automatic Directory Structure**: Creates proper Minecraft directory structure
 
@@ -18,12 +19,6 @@ A Node.js library for downloading, installing, and launching Minecraft in offlin
 ```bash
 npm install axocore
 ```
-
-## Dependencies
-
-- `axios` - HTTP client for downloading files and API requests
-- `extract-zip` - ZIP file extraction utility
-- `progress` - Progress bar for terminal output
 
 ## Quick Start
 
@@ -83,7 +78,38 @@ const path = require('path');
 })();
 ```
 
+
 ## API Reference
+
+### Progress and Log Tracking (Simple Callbacks)
+
+You can now track download progress and live game logs by passing callbacks directly to `launch` and `downloadAll`:
+
+- `onDownloadProgress`: Called with info about each file downloaded.
+- `onGameLog`: Called with each log line from the running game.
+
+#### Example Usage
+
+```javascript
+const axocore = require('axocore');
+const path = require('path');
+
+(async () => {
+  await axocore.launch({
+    version: '1.20.1',
+    username: 'Player',
+    javaPath: 'java',
+    destDir: path.resolve(__dirname, '.minecraft'),
+    gameDir: path.resolve(__dirname, '.minecraft'),
+    onDownloadProgress: (info) => {
+      console.log('[Download]', info);
+    },
+    onGameLog: (line) => {
+      console.log('[GameLog]', line);
+    }
+  });
+})();
+```
 
 ### `axocore.launch(options)`
 
@@ -166,11 +192,11 @@ axocore creates a standard Minecraft directory structure:
 
 ## Examples
 
-### Complete Example with Fabric and Custom Auth
+### Complete Example with Fabric, Custom Auth, and Progress/Log Callbacks
 
 ```javascript
 const path = require('path');
-const axocore = require('axocore');
+const axocore = require('./index');
 
 (async () => {
   // Launch Fabric Minecraft with explicit values
@@ -187,10 +213,15 @@ const axocore = require('axocore');
     gameDir: path.resolve(__dirname, '.minecraft'),
     javaArgs: [
       `-javaagent:${path.join(path.resolve(__dirname, '.minecraft'), 'authlib-injector.jar')}=https://nested.candiedapple.me/api/yggdrasil`
-    ]
+    ],
+    onDownloadProgress: (info) => {
+      console.log('[Download]', info);
+    },
+    onGameLog: (line) => {
+      console.log('[GameLog]', line);
+    }
   });
 })();
-
 ```
 
 ### Download Only (No Launch)

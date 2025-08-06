@@ -1,5 +1,6 @@
+
 const path = require('path');
-const axocore = require('../index');
+const axocore = require('./index');
 
 (async () => {
   // Launch Fabric Minecraft with explicit values
@@ -16,6 +17,12 @@ const axocore = require('../index');
     gameDir: path.resolve(__dirname, '.minecraft'),
     javaArgs: [
       `-javaagent:${path.join(path.resolve(__dirname, '.minecraft'), 'authlib-injector.jar')}=https://nested.candiedapple.me/api/yggdrasil`
-    ]
+    ],
+    onDownloadProgress: (info) => {
+      console.log('[Download]', info);
+    },
+    onGameLog: (line) => {
+      console.log('[GameLog]', line);
+    }
   });
 })();

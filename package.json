@@ -1,13 +1,25 @@
 {
   "name": "axocore",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Download and launch Minecraft in offline mode (all assets, libraries, etc)",
   "main": "index.js",
   "author": "candied-apple",
   "license": "MIT",
-  "dependencies": {
-    "axios": "^1.6.0",
-    "extract-zip": "^2.0.1",
-    "progress": "^2.0.3"
+  "keywords": [
+    "minecraft",
+    "launcher",
+    "offline",
+    "gaming"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/candied-apple/axocore.git"
+  },
+  "bugs": {
+    "url": "https://github.com/candied-apple/axocore/issues"
+  },
+  "homepage": "https://github.com/candied-apple/axocore#readme",
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
