@@ -19,7 +19,7 @@ const axocore = require('./index');
       `-javaagent:${path.join(path.resolve(__dirname, '.minecraft'), 'authlib-injector.jar')}=https://nested.candiedapple.me/api/yggdrasil`
     ],
     onDownloadProgress: (info) => {
-      console.log('[Download]', info);
+      console.log(info);
     },
     onGameLog: (line) => {
       console.log('[GameLog]', line);

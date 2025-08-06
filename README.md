@@ -83,9 +83,14 @@ const path = require('path');
 
 ### Progress and Log Tracking (Simple Callbacks)
 
+
 You can now track download progress and live game logs by passing callbacks directly to `launch` and `downloadAll`:
 
-- `onDownloadProgress`: Called with info about each file downloaded.
+- `onDownloadProgress`: Called with info about each file downloaded. For assets, the callback includes:
+  - `fileBytesDownloaded`: Bytes downloaded for the current file
+  - `fileTotalBytes`: Total bytes for the current file
+  - `cumulativeBytes`: Total bytes downloaded so far (all assets)
+  - `totalBytes`: Total bytes to download (all assets)
 - `onGameLog`: Called with each log line from the running game.
 
 #### Example Usage
@@ -102,7 +107,7 @@ const path = require('path');
     destDir: path.resolve(__dirname, '.minecraft'),
     gameDir: path.resolve(__dirname, '.minecraft'),
     onDownloadProgress: (info) => {
-      console.log('[Download]', info);
+      console.log(info);
     },
     onGameLog: (line) => {
       console.log('[GameLog]', line);
