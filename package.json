@@ -1,6 +1,6 @@
 {
   "name": "axocore",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Download and launch Minecraft in offline mode (all assets, libraries, etc)",
   "main": "index.js",
   "author": "candied-apple",
