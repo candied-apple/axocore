@@ -11,7 +11,7 @@ const axocore = require('./index');
     version: '1.20.1',
     javaPath: 'java',
     username: 'candiedapple',
-    password: 'alpo123',
+    password: 'alpo1234',
     authServer: 'https://nested.candiedapple.me/api/yggdrasil/authserver',
     destDir: path.resolve(__dirname, '.minecraft'),
     gameDir: path.resolve(__dirname, '.minecraft'),
